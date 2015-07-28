@@ -31,3 +31,22 @@ var RootNode = {
 };
 
 setRightProperty(RootNode);
+
+
+//still only checks the children in the adjacent parent node up to a shallow level
+function setRightProperty2(node, rightSibling){
+ if(node.Children){
+   var childNode, children = node.Children, rightChild = null;
+   for(var i=0; i < children.length; i++){
+     childNode = children[i];
+     if(i < children.length-1){
+       rightChild = children[i+1];
+       childNode.Right = rightChild;
+     //if the last node check any rightSibling
+     }else if(rightSibling && rightSibling.children){
+       childNode.Right = rightSibling.children[0];
+     }
+     setRightProperty(childNode, rightChild);
+   }
+ }
+}
